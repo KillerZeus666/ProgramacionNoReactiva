@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="icon" href="/favicon.ico">
+    <meta charset="UTF-8">
+
+  <title>Registro de Estudiante</title>
+  <link rel="stylesheet" type="text/css" href="estiloSimple.css">
+</head>
+<body>
+<div>
+  <form id="demo" action="/listaSimple.html">
+    <label for="nombre">Nombre</label>
+    <input type="text" id="nombre" name="nombre" required placeholder="Digite nombre(s)..">
+
+    <label for="apellido">Apellido</label>
+    <input type="text" id="apellido" name="apellido" required placeholder="Digite apellido(s)..">
+
+    <label for="correo">correo</label>
+
+    <input type="email" id="correo" name="correo" required placeholder="Digite correo..">
+    <input type="submit" onClick="enviaDatos()" value="Submit">
+  </form>
+</div>
+<script src="scriptSimple.js"></script>
+</body>
+</html>
