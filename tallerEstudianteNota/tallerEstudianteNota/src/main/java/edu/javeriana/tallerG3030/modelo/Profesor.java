@@ -1,4 +1,4 @@
-package edu.javeriana.tallerG3030.modelo;
+package edu.javeriana.modelo;
 
 import jakarta.persistence.*;
 import lombok.Getter;
