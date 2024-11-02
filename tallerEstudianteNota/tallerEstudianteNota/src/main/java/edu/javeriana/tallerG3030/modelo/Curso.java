@@ -27,4 +27,5 @@ public class Curso implements Serializable {
     private String codigo;
     private Date fechaInicio;
     private Date fechaFin;
+
 }

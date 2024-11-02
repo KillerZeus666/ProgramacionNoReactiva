@@ -6,7 +6,6 @@ import edu.javeriana.tallerG3030.repositorio.RepositorioEstudiante;
 import edu.javeriana.tallerG3030.repositorio.RepositorioNota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
