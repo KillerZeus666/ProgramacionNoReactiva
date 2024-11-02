@@ -19,7 +19,7 @@ public class ControladorCurso {
     private RepositorioCurso repositorioCurso;
 
     @Autowired
-    private RepositorioMateria repositorioMateria; // Agregar el repositorio de Materia
+    private RepositorioMateria repositorioMateria; 
 
     @GetMapping("/cursos")
     public List<Curso> traeCursos() {
