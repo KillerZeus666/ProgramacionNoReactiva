@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Cursos</title>
+</head>
+<body>
+<h1>Listado de Cursos</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Materia</th>
+        <th>Profesor</th>
+        <th>Código del curso</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody id="cursos-tabla"></tbody>
+</table>
+
+<script>
+    // Función para obtener y mostrar la información de los cursos
+    function cargarCursos() {
+        fetch("http://localhost:8080/curso/info")
+            .then(response => response.text())  // Cambiamos a .text() ya que es una cadena
+            .then(data => {
+                const tablaCursos = document.getElementById("cursos-tabla");
+
+                // Suponiendo que cada curso está separado por "Materia: "
+                const cursos = data.split("Materia: ").filter(curso => curso.trim() !== "");  // Filtra elementos vacíos
+
+                // Iterar sobre los cursos y crear filas en la tabla
+                cursos.forEach(cursoInfo => {
+                    // Dividir la información de cada curso
+                    const partes = cursoInfo.split("Profesor: ");
+                    const materia = partes[0].trim();
+                    const profesorYCodigo = partes[1].split("Código del curso: ");
+                    const profesor = profesorYCodigo[0].trim();
+                    const codigo = profesorYCodigo[1].trim();
+
+                    // Crear una fila para cada curso
+                    const fila = document.createElement("tr");
+
+                    // Crear celdas para Materia, Profesor y Código
+                    const celdaMateria = document.createElement("td");
+                    celdaMateria.textContent = materia;
+                    fila.appendChild(celdaMateria);
+
+                    const celdaProfesor = document.createElement("td");
+                    celdaProfesor.textContent = profesor;
+                    fila.appendChild(celdaProfesor);
+
+                    const celdaCodigo = document.createElement("td");
+                    celdaCodigo.textContent = codigo;
+                    fila.appendChild(celdaCodigo);
+
+                    // Crear celda para el botón de acciones
+                    const celdaAcciones = document.createElement("td");
+
+                    // Crear botón "Ver más estudiantes"
+                    const botonVerMas = document.createElement("button");
+                    botonVerMas.textContent = "Ver más estudiantes";
+                    botonVerMas.onclick = function() {
+                        // Redirigir al HTML de estudiantes del curso, pasando el código del curso como parámetro en la URL
+                        window.location.href = `estudianteCurso.html?codigo=${codigo}`; //aca pasa el codigo por la url
+                    };
+
+                    // Añadir el botón a la celda de acciones
+                    celdaAcciones.appendChild(botonVerMas);
+                    fila.appendChild(celdaAcciones);
+
+                    // Añadir la fila a la tabla
+                    tablaCursos.appendChild(fila);
+                });
+            })
+            .catch(error => console.error("Error al cargar los cursos:", error));
+    }
+
+    // Llamada a la función para cargar los cursos al cargar la página
+    window.onload = cargarCursos;
+</script>
+</body>
+</html>

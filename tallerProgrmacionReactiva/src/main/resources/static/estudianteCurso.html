@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiantes del Curso</title>
+</head>
+<body>
+<h1>Estudiantes del Curso</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Correo</th>
+        <th>Notas</th>
+    </tr>
+    </thead>
+    <tbody id="estudiantes-tabla"></tbody>
+</table>
+
+<script>
+    // Obtener el código del curso desde la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const cursoCodigo = urlParams.get('codigo');
+
+    // Función para cargar los estudiantes del curso
+    function cargarEstudiantes() {
+        fetch(`http://localhost:8080/curso/${cursoCodigo}/estudiantes`)
+            .then(response => response.json()) // Usamos .json() ya que el backend devuelve un JSON
+            .then(data => {
+                const tablaEstudiantes = document.getElementById("estudiantes-tabla");
+
+                // Iterar sobre los estudiantes y crear filas en la tabla
+                data.forEach(estudiante => {
+                    // Crear una fila para cada estudiante
+                    const fila = document.createElement("tr");
+
+                    // Crear celdas para ID, Nombre, Apellido y Correo
+                    const celdaId = document.createElement("td");
+                    celdaId.textContent = estudiante.id;
+                    fila.appendChild(celdaId);
+
+                    const celdaNombre = document.createElement("td");
+                    celdaNombre.textContent = estudiante.nombre;
+                    fila.appendChild(celdaNombre);
+
+                    const celdaApellido = document.createElement("td");
+                    celdaApellido.textContent = estudiante.apellido;
+                    fila.appendChild(celdaApellido);
+
+                    const celdaCorreo = document.createElement("td");
+                    celdaCorreo.textContent = estudiante.correo;
+                    fila.appendChild(celdaCorreo);
+
+                    // Crear celda para el botón "Mostrar Notas"
+                    const celdaNotas = document.createElement("td");
+
+                    // Crear el botón "Mostrar"
+                    const botonMostrar = document.createElement("button");
+                    botonMostrar.textContent = "Mostrar";
+                    botonMostrar.onclick = function() {
+                        // Redirigir al HTML de mostrar notas, pasando el id del estudiante como parámetro en la URL
+                        window.location.href = `agregarNotas.html?id=${estudiante.id}`; // Pasa el id por la URL
+                    };
+
+                    // Añadir el botón a la celda de notas
+                    celdaNotas.appendChild(botonMostrar);
+                    fila.appendChild(celdaNotas);
+
+                    // Añadir la fila a la tabla
+                    tablaEstudiantes.appendChild(fila);
+                });
+            })
+            .catch(error => console.error("Error al cargar los estudiantes:", error));
+    }
+
+    // Llamada a la función para cargar los estudiantes cuando la página se carga
+    window.onload = cargarEstudiantes;
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Cursos</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Si tienes un archivo CSS para los estilos -->
+</head>
+<body>
+<h1>Lista de Cursos</h1>
+
+<!-- Tabla para mostrar los cursos -->
+<table id="cursosTable">
+    <thead>
+    <tr>
+        <th>Código</th>
+        <th>Materia ID</th>
+        <th>Profesor ID</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Aquí se mostrarán los datos de los cursos -->
+    </tbody>
+</table>
+
+<script>
+    // Función para obtener los cursos desde la API y mostrarlos en la tabla
+    async function loadCursos() {
+        try {
+            // Hacer la solicitud al endpoint para obtener los cursos
+            const response = await fetch('http://localhost:8080/curso/all'); // Asegúrate de que la URL y el puerto sean correctos
+            const cursos = await response.json();
+
+            // Obtener el tbody de la tabla
+            const tbody = document.querySelector('#cursosTable tbody');
+            tbody.innerHTML = ''; // Limpiar cualquier dato previo
+
+            // Iterar sobre los cursos y agregar una fila a la tabla por cada curso
+            cursos.forEach(curso => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${curso.codigo}</td>
+                    <td>${curso.materiaid}</td>
+                    <td>${curso.profesorid}</td>
+                    <td>${curso.fechainicio}</td>
+                    <td>${curso.fechafin}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        } catch (error) {
+            console.error('Error al cargar los cursos:', error);
+        }
+    }
+
+    // Cargar los cursos al cargar la página
+    window.onload = loadCursos;
+</script>
+</body>
+</html>
