@@ -2,6 +2,7 @@ package com.tallerR2DBC.tallerProgrmacionReactiva.service.impl;
 
 import com.tallerR2DBC.tallerProgrmacionReactiva.controller.dto.ProfesorDto;
 import com.tallerR2DBC.tallerProgrmacionReactiva.repository.ProfesorRepository;
+import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.MateriaEntity;
 import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.ProfesorEntity;
 import com.tallerR2DBC.tallerProgrmacionReactiva.service.ProfesorService;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,11 @@ public class ProfesorServiceImpl implements ProfesorService {
     public Mono<ProfesorDto> getProfesor(Integer profesorId) {
         return profesorRepository.findById(profesorId)
                 .map(profesorEntity -> new ProfesorDto(profesorEntity.getId(), profesorEntity.getNombre(), profesorEntity.getApellido(), profesorEntity.getCorreo()));
+    }
+
+    public Mono<String> getProfesorNameById(Integer materiaId) {
+        return profesorRepository.findById(materiaId)
+                .map(ProfesorEntity::getNombre);
     }
 
     @Override

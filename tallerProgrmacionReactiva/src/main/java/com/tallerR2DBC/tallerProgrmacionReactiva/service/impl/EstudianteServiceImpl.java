@@ -4,7 +4,9 @@ import com.tallerR2DBC.tallerProgrmacionReactiva.controller.dto.EstudianteDto;
 import com.tallerR2DBC.tallerProgrmacionReactiva.controller.dto.ProfesorDto;
 import com.tallerR2DBC.tallerProgrmacionReactiva.repository.EstudianteRepository;
 import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.EstudianteEntity;
+import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.MateriaEntity;
 import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.ProfesorEntity;
+import com.tallerR2DBC.tallerProgrmacionReactiva.service.CursoService;
 import com.tallerR2DBC.tallerProgrmacionReactiva.service.EstudianteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,25 @@ import reactor.core.publisher.Mono;
 public class EstudianteServiceImpl implements EstudianteService {
     private final EstudianteRepository estudianteRepository;
 
+    CursoService cursoService;
     @Override
     public Mono<EstudianteDto> getEstudiante(Integer estudianteId) {
         return estudianteRepository.findById(estudianteId)
                 .map(estudianteEntity -> new EstudianteDto(estudianteEntity.getId(), estudianteEntity.getNombre(), estudianteEntity.getNombre(), estudianteEntity.getCorreo()));
+    }
+    public Mono<String> getEstudianteNameById(Integer materiaId) {
+        return estudianteRepository.findById(materiaId)
+                .map(EstudianteEntity::getNombre);
+    }
+
+    public Mono<String> getEstudianteApellidoById(Integer materiaId) {
+        return estudianteRepository.findById(materiaId)
+                .map(EstudianteEntity::getApellido);
+    }
+
+    public Mono<String> getEstudianteCorreoById(Integer materiaId) {
+        return estudianteRepository.findById(materiaId)
+                .map(EstudianteEntity::getCorreo);
     }
 
     @Override

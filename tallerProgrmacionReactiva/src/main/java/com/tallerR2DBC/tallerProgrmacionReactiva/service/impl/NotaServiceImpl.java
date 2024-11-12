@@ -1,8 +1,13 @@
 package com.tallerR2DBC.tallerProgrmacionReactiva.service.impl;
 
+import com.tallerR2DBC.tallerProgrmacionReactiva.controller.dto.EstudianteDto;
 import com.tallerR2DBC.tallerProgrmacionReactiva.controller.dto.NotaDto;
+import com.tallerR2DBC.tallerProgrmacionReactiva.repository.EstudianteRepository;
 import com.tallerR2DBC.tallerProgrmacionReactiva.repository.NotaRepository;
+import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.EstudianteEntity;
+import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.MateriaEntity;
 import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.NotaEntity;
+import com.tallerR2DBC.tallerProgrmacionReactiva.repository.entity.ProfesorEntity;
 import com.tallerR2DBC.tallerProgrmacionReactiva.service.NotaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +19,7 @@ import reactor.core.publisher.Mono;
 public class NotaServiceImpl implements NotaService {
 
     private final NotaRepository notaRepository;
+    private final EstudianteRepository estudianteRepository;
     @Override
     public Mono<NotaDto> getNota(Integer notaId) {
         return notaRepository.findById(notaId)

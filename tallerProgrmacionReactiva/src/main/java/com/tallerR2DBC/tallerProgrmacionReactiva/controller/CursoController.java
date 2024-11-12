@@ -1,6 +1,7 @@
 package com.tallerR2DBC.tallerProgrmacionReactiva.controller;
 
 import com.tallerR2DBC.tallerProgrmacionReactiva.controller.dto.CursoDto;
+import com.tallerR2DBC.tallerProgrmacionReactiva.controller.dto.EstudianteDto;
 import com.tallerR2DBC.tallerProgrmacionReactiva.service.CursoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +38,17 @@ public class CursoController {
     @GetMapping("/all")
     Flux<CursoDto> getAllCursos(){
         return cursoService.getAllCursos();
+    }
+
+    @GetMapping("/info")
+    public Flux<String> getAllCursosInfo() {
+        return cursoService.getAllCursosInfo();
+    }
+
+    // Endpoint para obtener todos los estudiantes de un curso por su código
+    @GetMapping("/{cursoId}/estudiantes")
+    public Flux<EstudianteDto> getEstudiantesByCursoCodigo(@PathVariable("cursoId") String codigo) {
+        return cursoService.getEstudiantesByCursoCodigo(codigo);
     }
 
 }

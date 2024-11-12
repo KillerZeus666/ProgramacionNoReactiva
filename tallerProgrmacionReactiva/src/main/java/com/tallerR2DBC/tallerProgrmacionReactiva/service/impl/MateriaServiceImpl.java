@@ -20,6 +20,11 @@ public class MateriaServiceImpl implements MateriaService {
                 .map(materiaEntity -> new MateriaDto(materiaEntity.getId(), materiaEntity.getNombre(), materiaEntity.getCreditos()));
     }
 
+    public Mono<String> getMateriaNameById(Integer materiaId) {
+        return materiaRepository.findById(materiaId)
+                .map(MateriaEntity::getNombre);
+    }
+
     @Override
     public Mono<MateriaDto> createMateria(MateriaDto materiaDto) {
         return materiaRepository.save(MateriaEntity.builder()
